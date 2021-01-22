@@ -1,10 +1,17 @@
-@extends('layouts.master')
+@extends('layouts.app')
 @section('menu')
     @parent
 @endsection
 
 @section('content')
     <div class="col-3">
+        {!! Form::open(['action'=>'TopicController@search', 'class'=>'form']) !!}
+            <div class="input-group">
+                {!! Form::text('searchform', '', ['class'=>'form-control', 'placeholder'=>'Input topic', 'autocomplete'=>'off']) !!}
+                <button type="submit" class="btn btn-success btn-sm">Search</button>
+            </div>
+        {!! Form::close() !!}
+
         {{-- список топиков --}}
         <ul class="list-unstyled">
             @foreach($topics as $topic)
@@ -35,11 +42,16 @@
                     {{-- текст --}}
                     <p class="lead">{{$block->content}}</p>
 
-                    {{-- кнопка удаления --}}
-
-
                     {{-- кнопка редактирования --}}
-                    
+                    <a href="{{ url('block/'.$block->id.'/edit') }}" class="btn btn-success float-left m-1">Edit</a>
+
+                    {{-- кнопка удаления --}}
+                    {!! Form::open(['route'=>['block.destroy', $block->id]]) !!}
+                        {{ Form::hidden('_method', 'DELETE') }}
+                        <button type="submit" class="btn btn-danger m-1">Delete</button>
+                    {!! Form::close() !!}
+
+
                     
                 </div>
             @endforeach

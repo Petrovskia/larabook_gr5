@@ -116,4 +116,11 @@ class TopicController extends Controller
     {
         //
     }
+
+    public function search(Request $request) {
+        $search = $request->searchform;
+        $search = '%'.$search.'%'; // маска поиска на содержимое
+        $topics = Topic::where('topicname', 'like', $search)->get(); // like - Это SQL оператор для поиска совпадений внутри текста
+        return view('topic.index', ['topics'=>$topics, 'id'=>0]);
+    }
 }

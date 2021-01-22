@@ -24,3 +24,8 @@ Route::get('/', function () {
 // Маршрутизация для RESTful контроллера устанавливается одной строкой по скриншоту маршрутов
 Route::resource('topic', 'TopicController');
 Route::resource('block', 'BlockController');
+Route::post('topic/search', 'TopicController@search');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
